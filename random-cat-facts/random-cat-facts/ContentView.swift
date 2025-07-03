@@ -19,23 +19,35 @@ enum CatFactError: Error {
 }
 
 struct ContentView: View {
-    @State var catFact: String?
+    @State private var catFact: String?
+    @State private var id = 0
     
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text(catFact ?? "Press the button to get a cat fact!")
+            Text("Cat Facts")
+                .font(.title)
             Button(action: {
                 Task {
                     catFact = try await fetchCatFact().fact
+                    id += 1
                 }
             }) {
                 Text("New Cat Fact")
             }
                 .buttonStyle(.bordered)
                 .cornerRadius(50)
+            Spacer()
+            AsyncImage(url: URL(string: "https://cataas.com/cat?type=square")) { image in
+                image.resizable()
+            } placeholder: {
+                ProgressView()
+            }
+            .frame(width: 200, height: 200)
+            .id(id)
+            Text(catFact ?? "Press the button to get a cat fact!")
+                .multilineTextAlignment(.center)
+                .fontWeight(.semibold)
+            Spacer()
         }
         .padding()
     }
