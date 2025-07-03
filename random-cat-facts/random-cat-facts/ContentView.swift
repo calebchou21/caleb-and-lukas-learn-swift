@@ -34,6 +34,8 @@ struct ContentView: View {
             }) {
                 Text("New Cat Fact")
             }
+                .buttonStyle(.bordered)
+                .cornerRadius(50)
         }
         .padding()
     }
