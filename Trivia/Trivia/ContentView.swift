@@ -11,7 +11,7 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             if let questions = triviaQuestions, !questions.isEmpty {
-                Text(questions[0].question)
+                Text(questions[0].question.stringByDecodingHTMLEntities)
             } else {
                 Text("Hello World")
             }
