@@ -15,15 +15,7 @@ struct ContentView: View {
             } else {
                 Text("Hello World")
             }
-            Slider(
-                value: $speed,
-                in: 0...100,
-                onEditingChanged: { editing in
-                    isEditing = editing
-                }
-            )
         }
-        .padding()
         .task {
             do {
                 triviaQuestions = try await fetchTriviaData().results
@@ -31,6 +23,16 @@ struct ContentView: View {
                 print("Failed to fetch trivia")
             }
         }
+        .padding()
+        if let questions = triviaQuestions {
+            Text(questions[0].correctAnswer)
+            ForEach(questions[0].incorrectAnswers, id: \.self) { ans in
+                Text(ans)
+            }
+        } else {
+            Text("Loading")
+        }
+        
     }
 }
 
