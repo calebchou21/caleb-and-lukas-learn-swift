@@ -7,9 +7,6 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
             if let questions = triviaQuestions, !questions.isEmpty {
                 Text(questions[0].question.stringByDecodingHTMLEntities)
             } else {
@@ -25,9 +22,9 @@ struct ContentView: View {
         }
         .padding()
         if let questions = triviaQuestions {
-            Text(questions[0].correctAnswer)
+            Option(text: questions[0].correctAnswer, action: {})
             ForEach(questions[0].incorrectAnswers, id: \.self) { ans in
-                Text(ans)
+                Option(text: ans, action: {})
             }
         } else {
             Text("Loading")
