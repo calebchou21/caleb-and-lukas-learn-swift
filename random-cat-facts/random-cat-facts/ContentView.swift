@@ -26,16 +26,6 @@ struct ContentView: View {
         VStack {
             Text("Cat Facts")
                 .font(.title)
-            Button(action: {
-                Task {
-                    catFact = try await fetchCatFact().fact
-                    id += 1
-                }
-            }) {
-                Text("New Cat Fact")
-            }
-                .buttonStyle(.bordered)
-                .cornerRadius(50)
             Spacer()
             AsyncImage(url: URL(string: "https://cataas.com/cat?type=square")) { image in
                 image.resizable()
@@ -48,6 +38,17 @@ struct ContentView: View {
                 .multilineTextAlignment(.center)
                 .fontWeight(.semibold)
             Spacer()
+            Button(action: {
+                Task {
+                    catFact = try await fetchCatFact().fact
+                    id += 1
+                }
+            }) {
+                Text("New Cat Fact")
+                    .frame(width: 100, height: 100)
+                    .clipShape(Circle())
+            }
+                .buttonStyle(.bordered)
         }
         .padding()
     }
